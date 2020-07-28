@@ -20,7 +20,7 @@ class ExtractFeatures:
         :params size_between_frames: The amount of time seperating every frame
         :returns: the data extracted from the frames
         """
-        #44 features are extracted (well name file, start time and end time are not really features but are important for labeling)
+        
         data = {
         "classification" : [],
         "start_time" : [],
