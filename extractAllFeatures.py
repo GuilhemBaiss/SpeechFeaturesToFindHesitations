@@ -239,20 +239,23 @@ data = {}
 df = pd.DataFrame()
 
 audio_files_list = os.listdir(PATH_SOUND_FILES)
+csv_files_list = os.listdir(PATH_CSV_FILES)
+
 number_audios_processed = 0 
 size_audios_folder = len(audio_files_list)
 
 for audios_names in audio_files_list:
     if audios_names[-3:] == "mp3" or audios_names[-3:] == "wav" or audios_names[-3:] == "MP3" or audios_names[-3:] == "WAV" :
-        path_sound_file = Functions.check_os(PATH_SOUND_FILES, audios_names)
-        number_audios_processed +=1
-        print("Processing file : {} - {}/{}".format(audios_names, number_audios_processed, size_audios_folder))
-        data = ExtractFeatures.extract_features(path_sound_file, minimum_silence_duration=MINIMUM_SILENCE_DURATION, size_frame=SIZE_FRAME, size_between_frames=SIZE_BETWEEN_FRAMES, number_of_energy_points=NUMBER_OF_ENERGY_POINTS, number_of_distances=NUMBER_OF_STABILITY_DISTANCES)
-        df = pd.DataFrame(data,columns=list(data.keys()))
-        df.to_csv(PATH_CSV_FILES + "\{}.csv".format(audios_names), index = False)
+        if Functions.check_if_csv_file(csv_files_list, audios_names):
+            path_sound_file = Functions.check_os(PATH_SOUND_FILES, audios_names)
+            number_audios_processed +=1
+            print("Processing file : {} - {}/{}".format(audios_names, number_audios_processed, size_audios_folder))
+            data = ExtractFeatures.extract_features(path_sound_file, minimum_silence_duration=MINIMUM_SILENCE_DURATION, size_frame=SIZE_FRAME, size_between_frames=SIZE_BETWEEN_FRAMES, number_of_energy_points=NUMBER_OF_ENERGY_POINTS, number_of_distances=NUMBER_OF_STABILITY_DISTANCES)
+            df = pd.DataFrame(data,columns=list(data.keys()))
+            df.to_csv(PATH_CSV_FILES + "\{}.csv".format(audios_names), index = False)
 
 if number_audios_processed ==0:
-    print("The folder given in argument does not contain any sound file")
+    print("The folder given in argument does not contain any sound file or all audios have csv files associated")
 
 
 

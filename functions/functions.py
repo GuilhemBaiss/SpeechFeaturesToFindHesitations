@@ -693,6 +693,17 @@ class Functions:
             path_sound_file = path + "\\" + audios_names
         return path_sound_file
 
-    
+    @staticmethod
+    def check_if_csv_file(list_csv, audio_name):
+        """
+        Checks if the csv already exists in the csv folder
+        params list_csv : list of all the csv files in the csv folder
+        params audio_name : audio to check if a csv file already exists
+        """
+        for csv in list_csv:
+            if audio_name == csv[:-4]:
+                return False
+        return True
+
 
 
