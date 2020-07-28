@@ -75,6 +75,7 @@ class ExtractFeatures:
         """
         print("Extracting features ..." )
         data['classification'].append("Unknown")
+        ExtractFeatures.__add_times_features(data, start_time_frame, end_time_frame)
         ExtractFeatures.__add_energy_features(data, pathSound, start_time_frame, end_time_frame, number_of_energy_points)
     
     @staticmethod
@@ -92,7 +93,16 @@ class ExtractFeatures:
         if (f0_mean_frame < f0_mean_audio or (reg_coeff_f0 < 0 and mean_slope_f0 < 0) or (reg_coeff_f0 > 0 and mean_slope_f0 > 0)) and f0_mean_frame != 0 and Features_f0.check_number_0(pathSound, start_time_frame, end_time_frame):  
             return True      
         return False
-    
+    @staticmethod
+    def __add_times_features(data, start_time_frame, end_time_frame):
+        """
+        Method that adds the values linked to time to the dataset
+        """
+        print("adding times")
+        data["start_time"].append(start_time_frame)
+        data["end_time"].append(end_time_frame)
+        data["duration"].append(end_time_frame - start_time_frame)
+
     @staticmethod
     def __add_energy_features(data, pathSound, start_time_frame, end_time_frame,number_of_energy_points):
         """
