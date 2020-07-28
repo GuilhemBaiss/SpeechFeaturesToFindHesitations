@@ -676,3 +676,23 @@ class Features_phonetic:
         distance_next_frame = math.sqrt(distance_next_frame)
 
         return (distance_previous_frame + distance_next_frame)/2
+
+class Functions:
+
+    @staticmethod
+    def check_os(path, audios_names):
+        """
+        Method that returns the path to a precise audio file depending of the user's operating system
+        params path : path to the folder containing the sound files
+        params audios_name : name of the sound file that the algorithm is going to analyse
+        returns : path to the specific audio file. 
+        """
+        if "/" in path and "\\" is not True:
+            path_sound_file = path + "/" + audios_names
+        else:
+            path_sound_file = path + "\\" + audios_names
+        return path_sound_file
+
+    
+
+

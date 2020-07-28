@@ -209,19 +209,6 @@ class ExtractFeatures:
         
         data["stability_distance"].append(Features_phonetic.get_minimum_stability_distance(coefficients, number_of_distances))
 
-def check_os(path, audios_names):
-    """
-    Method that returns the path to a precise audio file depending of the user's operating system
-    params path : path to the folder containing the sound files
-    params audios_name : name of the sound file that the algorithm is going to analyse
-    returns : path to the specific audio file. 
-    """
-    if "/" in path and "\\" is not True:
-        path_sound_file = path + "/" + audios_names
-    else:
-        path_sound_file = path + "\\" + audios_names
-    return path_sound_file
-
 #-----------------------------------------------------------------------------------------------------------
 #HYPERPARAMETERS 
 MINIMUM_SILENCE_DURATION = 0.1
@@ -232,15 +219,19 @@ SIZE_BETWEEN_FRAMES = 0.1
 NUMBER_OF_ENERGY_POINTS = 100
 NUMBER_OF_STABILITY_DISTANCES = 10
 
+PATH_SOUND_FILES ="audios"
+PATH_CSV_FILES = "csv"
+
+print("python pythonFile.py [path_to_sound_files] [path_to_csv_files]")
 #Look if the path is given by argument
-if len(sys.argv) ==1:
-    print("ERROR : python pythonFile.py path_to_sound_files")
-    sys.exit()
+if len(sys.argv) ==2:
+    PATH_SOUND_FILES = sys.argv[1]
 
-if len(sys.argv) == 2:
+if len(sys.argv) == 3:
     PATH_SOUND_FILES =sys.argv[1]
+    PATH_CSV_FILES = sys.argv[2]
 
-elif len(sys.argv) > 2:
+elif len(sys.argv) > 3:
     print("Error too many arguments given")
     sys.exit()
 
@@ -253,12 +244,15 @@ size_audios_folder = len(audio_files_list)
 
 for audios_names in audio_files_list:
     if audios_names[-3:] == "mp3" or audios_names[-3:] == "wav" or audios_names[-3:] == "MP3" or audios_names[-3:] == "WAV" :
-        path_sound_file = check_os(PATH_SOUND_FILES, audios_names)
+        path_sound_file = Functions.check_os(PATH_SOUND_FILES, audios_names)
         number_audios_processed +=1
         print("Processing file : {} - {}/{}".format(audios_names, number_audios_processed, size_audios_folder))
         data = ExtractFeatures.extract_features(path_sound_file, minimum_silence_duration=MINIMUM_SILENCE_DURATION, size_frame=SIZE_FRAME, size_between_frames=SIZE_BETWEEN_FRAMES, number_of_energy_points=NUMBER_OF_ENERGY_POINTS, number_of_distances=NUMBER_OF_STABILITY_DISTANCES)
         df = pd.DataFrame(data,columns=list(data.keys()))
-        df.to_csv("csv\{}.csv".format(audios_names), index = False)
+        df.to_csv(PATH_CSV_FILES + "\{}.csv".format(audios_names), index = False)
+
+if number_audios_processed ==0:
+    print("The folder given in argument does not contain any sound file")
 
 
 
