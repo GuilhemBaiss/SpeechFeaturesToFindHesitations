@@ -18,7 +18,8 @@ class ExtractFeatures:
         :params minimum_silence_duration: value of the minimum silence duration detection
         :params size_frame: The amount of time per frames
         :params size_between_frames: The amount of time seperating every frame
-        :params time_for_pauses_detection: the amount of time where silences pauses are checked before and after a specific frame
+        :params number_of_energy_points : the amount of energy points used to extract energy features
+        :params number_of_distances : the amount of distances calculated to determine the minimum stability distance
         :returns: the data extracted from the frames
         """
         #44 features are extracted (well name file, start time and end time are not really features but are important for labeling)
@@ -108,7 +109,8 @@ class ExtractFeatures:
         :params endSoundFile : end time of the entire audio file in seconds
         :params start_frame : starting time of the frame in seconds
         :params end_frame : ending time of the frame in seconds
-        :params time_for_pauses_detection: the amount of time where silences pauses are checked before and after a specific frame
+        :params number_of_energy_points : the amount of energy points used to extract energy features
+        :params number_of_distances : the amount of distances calculated to determine the minimum stability distance
         """
         print("Extracting features ..." )
         data['classification'].append("Unknown")
