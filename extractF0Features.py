@@ -20,7 +20,7 @@ class ExtractFeatures:
         :params size_between_frames: The amount of time seperating every frame
         :returns: the data extracted from the frames
         """
-        
+        # 8 f0 features
         data = {
         "classification" : [],
         "start_time" : [],
