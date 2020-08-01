@@ -680,20 +680,6 @@ class Features_phonetic:
 class Functions:
 
     @staticmethod
-    def check_os(path, audios_names):
-        """
-        Method that returns the path to a precise audio file depending of the user's operating system
-        params path : path to the folder containing the sound files
-        params audios_name : name of the sound file that the algorithm is going to analyse
-        returns : path to the specific audio file. 
-        """
-        if "/" in path and "\\" is not True:
-            path_sound_file = path + "/" + audios_names
-        else:
-            path_sound_file = path + "\\" + audios_names
-        return path_sound_file
-
-    @staticmethod
     def check_if_csv_file(list_csv, audio_name):
         """
         Checks if the csv already exists in the csv folder

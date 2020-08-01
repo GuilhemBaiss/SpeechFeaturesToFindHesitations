@@ -153,7 +153,7 @@ size_audios_folder = len(audio_files_list)
 for audios_names in audio_files_list:
     if audios_names[-3:] == "mp3" or audios_names[-3:] == "wav" or audios_names[-3:] == "MP3" or audios_names[-3:] == "WAV" :
         if Functions.check_if_csv_file(csv_files_list, audios_names):
-            path_sound_file = Functions.check_os(PATH_SOUND_FILES, audios_names)
+            path_sound_file = os.path.join(PATH_SOUND_FILES, audios_names)
             number_audios_processed +=1
             print("Processing file : {} - {}/{}".format(audios_names, number_audios_processed, size_audios_folder))
             data = ExtractFeatures.extract_features(path_sound_file, minimum_silence_duration=MINIMUM_SILENCE_DURATION, size_frame=SIZE_FRAME, size_between_frames=SIZE_BETWEEN_FRAMES, number_of_energy_points=NUMBER_OF_ENERGY_POINTS)
